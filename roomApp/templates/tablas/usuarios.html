@@ -1,0 +1,149 @@
+<!-- usuarios.html -->
+{% extends "base.html" %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-lg-4 mb-3">
+            <h2 class="text-dark">Lista de Usuarios Superusuarios</h2>
+        </div>
+        <div class="col-lg-5">
+            <form id="searchForm" class="d-flex" method="GET" action="{% url 'buscar_usuarios' %}">
+                <input id="searchInput" class="form-control me-2" type="search" name="q" placeholder="Ingrese el nombre del usuario" aria-label="Search">
+                <button class="btn btn-outline-info" type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-lg">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuariosTableBody">
+                            {% include 'tablas/tabla_usuarios.html' %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#searchInput').keyup(function() {
+        var query = $(this).val();
+        $.ajax({
+            url: '{% url "buscar_usuarios" %}',
+            data: {
+                'q': query
+            },
+            success: function(response) {
+                $('#usuariosTableBody').html(response.html_result);
+            }
+        });
+    });
+});
+</script>
+
+<style>
+/* Estilos personalizados */
+.container {
+    max-width: 1200px;
+}
+body {
+    padding-top: 70px;
+    background-color: #f8f9fa;
+    color: #343a40;
+    background-size: cover;
+    background-image: url(https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)
+}
+h2 {
+    font-weight: bold;
+    color: #007bff;
+}
+.form-control {
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+}
+.btn-outline-info {
+    color: #17a2b8;
+    border-color: #17a2b8;
+}
+.btn-outline-info:hover {
+    background-color: #17a2b8;
+    color: #fff;
+}
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+.card {
+    border: none;
+    border-radius: 0.5rem;
+}
+.card-body {
+    padding: 2rem;
+}
+.table {
+    margin-bottom: 0;
+}
+.table th,
+.table td {
+    vertical-align: middle;
+}
+.table thead th {
+    border-bottom: 2px solid #dee2e6;
+}
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+.img-thumbnail {
+    border-radius: 0.25rem;
+}
+.text-muted {
+    color: #6c757d;
+}
+@media (max-width: 768px) {
+    .col-lg-4,
+    .col-lg-5,
+    .col-lg-3 {
+        margin-bottom: 1rem;
+    }
+    .text-end {
+        text-align: left !important;
+    }
+}
+</style>
+{% endblock contenido %}

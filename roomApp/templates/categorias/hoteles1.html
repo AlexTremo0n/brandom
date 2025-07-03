@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-lg-4 mb-3">
+            <h2 class="text-dark">Listado de Hoteles</h2>
+        </div>
+        <div class="col-lg-5">
+            <form id="searchForm" class="d-flex" method="GET" action="{% url 'buscar_hoteles' %}">
+                <input id="searchInput" class="form-control me-2" type="search" name="q" placeholder="Ingrese el nombre del hotel" aria-label="Search">
+                <button class="btn btn-outline-info" type="submit">Buscar</button>
+            </form>
+        </div>
+        {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+        <div class="col-lg-3 mb-3 text-end">
+            <a class="btn btn-success" href="{% url 'crearHotel' %}"><i class="fas fa-plus"></i> Agregar Hotel</a>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>    <div class="page-header mb-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2 class="mb-0">Gestión de Hoteles</h2>
+                    <p class="text-muted mb-0">Administra la información de todos los hoteles</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    {% if user.is_authenticated and user.is_superuser %}
+                    <a href="{% url 'crearHotel' %}" class="btn btn-primary">
+                        <i class="bi bi-plus-lg"></i> Agregar Hotel
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-lg admin-table">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="d-flex gap-3">
+                            <div class="input-group" style="width: 300px;">
+                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                <input type="text" class="form-control" placeholder="Buscar hotel..." id="searchHotel">
+                            </div>
+                            <select class="form-select" style="width: 200px;">
+                                <option selected>Filtrar por categoría</option>
+                                <option>Todas las categorías</option>
+                                <option>5 estrellas</option>
+                                <option>4 estrellas</option>
+                                <option>3 estrellas</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Hotel</th>
+                                    <th>Código</th>
+                                    <th>Precio</th>
+                                    <th>Categoría</th>
+                                    <th>Ubicación</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="hotelsTableBody">
+                            {% for hotel in hoteles %}                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        {% if hotel.foto %}
+                                        <img src="{{ hotel.foto.url }}" alt="Foto del hotel" class="rounded-3">
+                                        {% else %}
+                                        <div class="bg-light rounded-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="bi bi-building text-muted" style="font-size: 1.5rem;"></i>
+                                        </div>
+                                        {% endif %}
+                                        <div>
+                                            <h6 class="mb-0">{{ hotel.nombre }}</h6>
+                                            <small class="text-muted">ID: {{ hotel.id }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark">{{ hotel.codigoHotel }}</span>
+                                </td>
+                                <td>
+                                    <strong>${{ hotel.precio }}</strong>
+                                </td>
+                                <td>
+                                    <span class="badge" style="background-color: {% if hotel.categoria == '5 estrellas' %}#198754{% elif hotel.categoria == '4 estrellas' %}#0d6efd{% else %}#6c757d{% endif %}">
+                                        {{ hotel.categoria }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-geo-alt text-muted"></i>
+                                        {{ hotel.departamento }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success">Activo</span>
+                                </td>
+                                <td>
+                                    {% if user.is_authenticated %}
+                                    {% if user.is_superuser %}
+                                    <div class="btn-group">
+                                        <a class="btn btn-outline-primary btn-sm" href="{% url 'editarHotel' hotel.id %}">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a class="btn btn-outline-danger btn-sm" href="{% url 'eliminarHotel' hotel.id %}">
+                                            <i class="bi bi-trash3"></i>
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Función de búsqueda en tiempo real
+    document.getElementById('searchHotel').addEventListener('keyup', function() {
+        let searchText = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#hotelsTableBody tr');
+        
+        rows.forEach(row => {
+            let hotelName = row.querySelector('h6').textContent.toLowerCase();
+            let hotelCode = row.querySelector('.badge.bg-light').textContent.toLowerCase();
+            let location = row.querySelector('.bi-geo-alt').parentElement.textContent.trim().toLowerCase();
+            
+            if (hotelName.includes(searchText) || 
+                hotelCode.includes(searchText) || 
+                location.includes(searchText)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+    // Animaciones suaves para los botones
+    document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transition = 'all 0.3s ease';
+        });
+    });
+
+    // Tooltips para los botones de acción
+    document.querySelectorAll('.btn-group .btn').forEach(btn => {
+        if (btn.classList.contains('btn-outline-primary')) {
+            btn.setAttribute('title', 'Editar hotel');
+        } else if (btn.classList.contains('btn-outline-danger')) {
+            btn.setAttribute('title', 'Eliminar hotel');
+        }
+    });
+
+    // Función para filtrar por categoría
+    document.querySelector('select').addEventListener('change', function() {
+        let selectedCategory = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#hotelsTableBody tr');
+        
+        rows.forEach(row => {
+            let category = row.querySelector('.badge:not(.bg-light)').textContent.toLowerCase();
+            if (selectedCategory === 'todas las categorías' || category.includes(selectedCategory)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+</div>
+</div>
+</div>
+</body>
+</html>
+{% endblock contenido %}

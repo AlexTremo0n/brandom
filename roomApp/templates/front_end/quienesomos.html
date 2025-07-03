@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiénes Somos - Sunset Bay Resort</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/boton.css' %}">
+    <link rel="stylesheet" href="{% static 'css/quienesomos.css' %}">
+    <link rel="icon" href="{% static 'img/logo.ico' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        .header-image {
+            width: 100%;
+            height: 50vh;
+            background: url("{% static 'img/hermoso.jpg' %}") no-repeat center center;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .header-text {
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .content {
+            padding: 50px 20px;
+
+        }
+
+        .about-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 0;
+            margin-bottom: 20px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .about-text {
+            flex: 2;
+            padding: 20px;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .team-section {
+            margin-top: 50px;
+        }
+
+        .team-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .team-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .team-member {
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .team-member h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            font-size: 1rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'img/logo.png' %}" alt="logo" width="50px">
+            Sunset Bay Resort
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'categorias' %}">Categorías</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'quienesomos' %}">Quiénes somos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'habitaciones' %}">Habitaciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'lista_clientes' %}">Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'lista_usuarios' %}">Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Regístrate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="header-image">
+    <div class="header-text">Conoce Más Sobre Nosotros</div>
+</div>
+
+<div class="content">
+    <div class="about-section">
+        <div class="about-image">
+            <img src="{% static 'img/hotel.jpg' %}" alt="Sunset Bay Resort">
+        </div>
+        <div class="about-text">
+            <h2>Sobre Sunset Bay Resort</h2>
+            <p>Sunset Bay Resort es un lugar donde el lujo se encuentra con la tranquilidad. Situado en la hermosa costa de Puerto Vallarta, nuestro resort ofrece una experiencia única de relajación y confort. Con más de 20 años de experiencia en la industria hotelera, nos enorgullece ofrecer un servicio excepcional y unas instalaciones de primera categoría.</p>
+            <p>Nuestro resort cuenta con 96 habitaciones lujosas, un restaurante gourmet, spa, gimnasio y múltiples salas de eventos, ideales para bodas, conferencias y otros eventos especiales. En Sunset Bay Resort, cada detalle está pensado para asegurar que su estancia sea inolvidable.</p>
+        </div>
+    </div>
+
+<div class="wrapper">
+  <div class="items">
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo1.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo2.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo3.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo4.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo5.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo6.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo7.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo8.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo9.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo10.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo11.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo12.jpg' %}')"></div>
+    <div class="item" tabindex="0" style="background-image: url('{% static 'img/fondo13.jpg' %}')"></div>
+  </div>
+</div>
+
+
+    <div class="team-section">
+        <h2>Conoce a Nuestro Equipo</h2>
+        <div class="team-container">
+            <div class="team-member">
+                <img src="{% static 'img/brandon.jpg' %}" alt="Brandon Burgos">
+                <h3>Brandon Burgos</h3>
+                <p>Programador Senior</p>
+            </div>
+            <div class="team-member">
+                <img src="{% static 'img/jarvis.jpg' %}" alt="Jarvis Orostigue">
+                <h3>Jarvis Orostigue</h3>
+                <p>Programador Senior</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container1">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <p class="col-md-4 mb-0 text-body-secondary">© 2024 - Sunset Bay Resort</p>
+            <a href="#" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-auto me-md-auto link-body-emphasis text-decoration-none">
+                <img src="{% static 'img/logo.png' %}" alt="logo" width="50px">
+            </a>
+            <div class="icons">
+                <img src="{% static 'img/instagramss.png' %}" alt="insta">
+                <img src="{% static 'img/linkedins.png' %}" alt="linked">
+                <img src="{% static 'img/facebooks.png' %}" alt="facebook">
+                <img src="{% static 'img/whatsapps.png' %}" alt="whatsapp">
+            </div>
+        </footer>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script
+
+</body>
+</html>

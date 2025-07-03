@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paises</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-primary h2 text-center mb-4">Ciudades en {{ pais }}</div>
+                <div class="row">
+                    {% for clave, valor in ciudades.items %}
+                        <div class="col-lg-4 mb-4">
+                            <a href="{% url 'hoteles' clave %}" style="text-decoration: none; color: inherit;">
+                                <div class="card">
+                                    <img src="{% static 'img/' %}{{ valor.3 }}" class="card-img-top" alt="imagen del país {{ valor.0 }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ valor.0 }}</h5>
+                                        <p class="card-text">
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

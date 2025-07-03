@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotos</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="static/css/estilo.css">
+    <style>
+        body {
+            background-image: url("{% static 'img/hermoso.jpg' %}");
+            background-size: cover; /* Ajustar imagen al tamaño de la ventana */
+            background-repeat: no-repeat; /* Evitar que la imagen se repita */
+        }
+        .logo-text {
+            font-size: 12px; /* Ajusta el tamaño de la fuente según sea necesario */
+            color: white; /* Cambia el color de la letra a blanco */
+            font-weight: bold; /* Hace que la fuente sea más gruesa (negrita) */
+            border-radius: 10px; /* Aplica bordes redondeados al elemento */
+            padding: 5px; /* Agrega un poco de espacio alrededor del texto */
+        }
+    </style>
+</head>
+<body>
+
+<section>
+    <img width="50px" src="{% static 'img/logo.png' %}" alt="Imagen del usuario">
+    <p class="logo-text">Sunset Bay Resort</p>
+</section>
+<ul>
+    <!---Rescatar datos enviado con vista-->
+</ul>
+<div class="container">
+    <div class="row">
+        <div class="col mt-2">
+            <section>
+                <div class="alert alert-dark h1">Informacion de nuestras habitaciones</div>
+                <div class="row">
+                    {% for codigo, detalle in fotos.items %}
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img class="img-fluid" src="{% static 'img/' %}{{ detalle.4 }}" alt="Foto de {{ detalle.0 }} - {{ detalle.1 }}">
+                                    <ul>
+                                        <li>Tipo:{{detalle.0}}</li>
+                                        <li>Detalles:{{detalle.1}}</li>
+                                        <li>Habitacion para: 
+                                            <ul>
+                                            {% for i in detalle.2 %}
+                                                <li>{{ i }}</li>
+                                            {% endfor %}
+                                            </ul>        
+                                        <li>Precio: ${{detalle.3}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <footer>
+                <a class="btn btn-dark mt-4 mb-4 d-flex justify-content-center" href="{% url 'info' %}">Volver</a>
+                <!-- Agregamos el js de bootstrap -->
+                <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+            </footer>
+        </div>
+    </div>
+</div>
+</section>
+</body>
+</html>
+    

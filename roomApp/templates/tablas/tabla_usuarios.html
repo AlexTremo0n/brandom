@@ -1,0 +1,23 @@
+<!-- usuarios_partial.html -->
+
+{% for usuario in usuarios %}
+    {% if usuario.is_superuser %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ usuario.first_name }}</td>
+            <td>{{ usuario.last_name }}</td>
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>
+                {% if user.is_superuser %}
+                    <a href="{% url 'editarUsuario' usuario.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'eliminarUsuario' usuario.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endif %}
+{% empty %}
+    <tr>
+        <td colspan="6" class="text-center">No se encontraron usuarios superusuarios</td>
+    </tr>
+{% endfor %}

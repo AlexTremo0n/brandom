@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías de Productos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 70px;
+            background-color: #f8f9fa;
+            color: #343a40;
+            background-size: cover;
+            background-image: url(https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+        }
+        .navbar-brand { font-weight: bold; font-size: 1.5rem; }
+        .starter-template { padding: 3rem 1.5rem; text-align: center; }
+        .card { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .card-title { font-size: 1.25rem; font-weight: bold; }
+        .btn-primary { background-color: #007bff; border-color: #007bff; }
+        .btn-primary:hover { background-color: #0056b3; border-color: #004085; }
+        footer { background-color: #343a40; color: #fff; padding: 1rem 0; text-align: center; position: fixed; width: 100%; bottom: 0; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="starter-template">
+            <h1 style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 0 0 5px white; color: white;">Categorías de Productos</h1>
+            <p class="lead" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 0 0 5px white; color: white;">Descubre nuestras diversas categorías de productos. ¡Encuentra lo que necesitas!</p>
+            <div class="row mb-4">
+                <div class="col-lg-3 mb-3 text-end">
+                 {% if user.is_authenticated %}
+                  {% if user.is_superuser %}
+                    <a class="btn btn-success" href="{% url 'crearCategoria' %}"><i class="fas fa-plus"></i> Agregar Categoría</a>
+                </div>
+                 {% endif %}
+                 {% endif %}
+                <div class="col-lg-5">
+                    <form id="searchForm" class="d-flex">
+                        <input id="searchInput" class="form-control me-2" type="search" placeholder="Ingrese el nombre de la Categoria" aria-label="Search">
+                        <button class="btn btn-outline-info" type="submit">Buscar</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row" id="categoriesContainer">
+                {% include "categorias/cards_categorias.html" %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#searchForm').submit(function(event) {
+            event.preventDefault();
+            var query = $('#searchInput').val();
+            $.ajax({
+                url: "{% url 'buscar_categorias' %}",
+                type: "GET",
+                data: { q: query },
+                success: function(response) {
+                    $('#categoriesContainer').html(response);
+                },
+                error: function() {
+                    alert("Error al buscar categorías.");
+                }
+            });
+        });
+
+        // Búsqueda en tiempo real mientras el usuario escribe
+        $('#searchInput').on('input', function() {
+            var query = $(this).val();
+            $.ajax({
+                url: "{% url 'buscar_categorias' %}",
+                type: "GET",
+                data: { q: query },
+                success: function(response) {
+                    $('#categoriesContainer').html(response);
+                },
+                error: function() {
+                    alert("Error al buscar categorías.");
+                }
+            });
+        });
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+F2eGA9BI5lIWfgUCbiGmAz+EF3/s" crossorigin="anonymous"></script>
+</body>
+</html>
+{% endblock contenido %}

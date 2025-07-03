@@ -1,0 +1,143 @@
+<!-- hoteles.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoteles en {{ ciudad }}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/elegant-theme.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<body>
+    <!-- Header Elegante -->
+    <header class="elegant-header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg elegant-navbar">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <i class="bi bi-house-door"></i> Luxury Hotels
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="bi bi-house"></i> Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="bi bi-info-circle"></i> Acerca de</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="bi bi-envelope"></i> Contacto</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="container mt-5">
+        <div class="elegant-container text-center">
+            <h1 class="display-4 mb-3">Descubra el Lujo y el Confort</h1>
+            <p class="lead mb-5">Explore nuestra exclusiva selección de hoteles en {{ ciudad }}</p>
+        </div>
+
+        <!-- Buscador Elegante -->
+        <div class="elegant-search">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="text" class="form-control" placeholder="Buscar hotel...">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select">
+                        <option selected>Categoría</option>
+                        <option>1 Estrella</option>
+                        <option>2 Estrellas</option>
+                        <option>3 Estrellas</option>
+                        <option>4 Estrellas</option>
+                        <option>5 Estrellas</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select">
+                        <option selected>Precio</option>
+                        <option>Menor a mayor</option>
+                        <option>Mayor a menor</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100">Filtrar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="hotel-grid">
+            {% for hotel in hoteles %}
+                <div class="hotel-card">
+                    <a href="{% url 'hotel' hotel.clave %}" class="text-decoration-none">
+                        <div class="card h-100">
+                            <img src="{% static 'img/' %}{{ hotel.imagen }}" class="card-img-top" alt="imagen del hotel {{ hotel.nombre }}">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title mb-0">{{ hotel.nombre }}</h5>
+                                    <span class="hotel-category">{{ hotel.categoria }}</span>
+                                </div>
+                                <div class="hotel-location">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>{{ hotel.ciudad }}</span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="hotel-price">
+                                        $ {{ hotel.valor }}
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-sm">
+                                        Ver detalles <i class="bi bi-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        // Animación suave al hacer scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Filtrado de hoteles (ejemplo básico)
+        document.querySelector('input[type="text"]').addEventListener('keyup', function(e) {
+            const searchText = e.target.value.toLowerCase();
+            const hotels = document.querySelectorAll('.hotel-card');
+            
+            hotels.forEach(hotel => {
+                const hotelName = hotel.querySelector('.card-title').textContent.toLowerCase();
+                if(hotelName.includes(searchText)) {
+                    hotel.style.display = '';
+                } else {
+                    hotel.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

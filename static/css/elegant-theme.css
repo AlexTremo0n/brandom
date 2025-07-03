@@ -1,0 +1,178 @@
+:root {
+    --color-wood-dark: #2A1810;
+    --color-wood-medium: #5C3D2E;
+    --color-wood-light: #B85C38;
+    --color-cream: #E0C097;
+    --color-white: #FFFFFF;
+    --color-gray-light: #F5F5F5;
+    --shadow-elegant: 0 10px 30px rgba(42, 24, 16, 0.1);
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Playfair Display', serif;
+    color: var(--color-wood-dark);
+    background-color: var(--color-gray-light);
+}
+
+/* Header elegante */
+.elegant-header {
+    background: linear-gradient(to right, var(--color-wood-dark), var(--color-wood-medium));
+    padding: 1.5rem 0;
+    box-shadow: var(--shadow-elegant);
+}
+
+.elegant-header .navbar-brand {
+    color: var(--color-cream);
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.elegant-navbar {
+    background-color: var(--color-wood-dark);
+}
+
+.elegant-navbar .nav-link {
+    color: var(--color-cream) !important;
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.elegant-navbar .nav-link:hover {
+    color: var(--color-white) !important;
+}
+
+/* Contenedor principal con estilo elegante */
+.elegant-container {
+    background-color: var(--color-white);
+    border-radius: 15px;
+    box-shadow: var(--shadow-elegant);
+    padding: 2rem;
+    margin: 2rem auto;
+}
+
+/* Tarjetas de hotel con estilo elegante */
+.elegant-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--color-white);
+    margin-bottom: 2rem;
+}
+
+.elegant-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-elegant);
+}
+
+.elegant-card .card-img-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+}
+
+.elegant-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.elegant-card:hover img {
+    transform: scale(1.05);
+}
+
+.elegant-card .card-body {
+    padding: 1.5rem;
+    background: linear-gradient(to bottom right, var(--color-white), var(--color-gray-light));
+}
+
+.elegant-card .hotel-name {
+    color: var(--color-wood-dark);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.elegant-card .hotel-location {
+    color: var(--color-wood-medium);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.elegant-card .hotel-price {
+    color: var(--color-wood-light);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.elegant-card .hotel-category {
+    background-color: var(--color-cream);
+    color: var(--color-wood-dark);
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+/* Botones elegantes */
+.btn-elegant {
+    background-color: var(--color-wood-medium);
+    color: var(--color-cream);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-elegant:hover {
+    background-color: var(--color-wood-dark);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+/* Buscador elegante */
+.elegant-search {
+    background: linear-gradient(135deg, var(--color-wood-dark), var(--color-wood-medium));
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 3rem;
+}
+
+.elegant-search input,
+.elegant-search select {
+    border: 2px solid var(--color-cream);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Footer elegante */
+.elegant-footer {
+    background: linear-gradient(to right, var(--color-wood-dark), var(--color-wood-medium));
+    color: var(--color-cream);
+    padding: 3rem 0;
+    margin-top: 4rem;
+}
+
+.elegant-footer h5 {
+    color: var(--color-white);
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.elegant-footer a {
+    color: var(--color-cream);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.elegant-footer a:hover {
+    color: var(--color-white);
+}
